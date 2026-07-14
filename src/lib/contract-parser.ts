@@ -56,8 +56,11 @@ async function extractSpecEntries(
   wasm: Uint8Array
 ): Promise<xdr.ScSpecEntry[]> {
   const bytes = new Uint8Array(wasm);
-  const module = await WebAssembly.compile(bytes);
-  const sections = WebAssembly.Module.customSections(module, "contractspecv0");
+  const wasmModule = await WebAssembly.compile(bytes);
+  const sections = WebAssembly.Module.customSections(
+    wasmModule,
+    "contractspecv0"
+  );
   if (sections.length === 0) {
     throw new Error("No contract spec found in WASM");
   }
