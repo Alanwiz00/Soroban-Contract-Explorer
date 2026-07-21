@@ -1,13 +1,14 @@
-/** @type {import("jest").Config} */
+const nextJest = require("next/jest");
+
+const createJestConfig = nextJest({ dir: "./" });
+
+/** @type {import('jest').Config} */
 const config = {
   testEnvironment: "node",
-  transform: {
-    "^.+\\.tsx?$": ["ts-jest", { tsconfig: "tsconfig.jest.json" }],
-  },
+  testMatch: ["**/tests/**/*.test.ts"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
-  testMatch: ["<rootDir>/tests/**/*.test.ts"],
 };
 
-module.exports = config;
+module.exports = createJestConfig(config);
